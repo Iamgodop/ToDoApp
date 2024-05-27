@@ -32,7 +32,7 @@ export class HomeComponent {
       this.errorMessage = "Password must be 8 characters.";
       return false;
     }
-    else if (password.match("/[A-Z]/") || password.match("/[a-z]/")) {
+    else if (! password.match("/[A-Z]/") || ! password.match("/[a-z]/")) {
       this.errorMessage = "Password must have atleast 1 character";
       return false;
     }
