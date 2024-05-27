@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-border {
+    -webkit-text-stroke: 1px white; /* Adjust the stroke width and color as needed */
+    color: black; /* Adjust the text color */
+  }
