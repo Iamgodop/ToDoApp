@@ -36,7 +36,7 @@ export class HomeComponent {
       this.errorMessage = "Password must have atleast 1 character";
       return false;
     }
-    else if (password.match("/[1-9]/")) {
+    else if (! password.match("/[1-9]/")) {
       this.errorMessage = "Password must have atleast 1 numeric";
       return false;
     }
