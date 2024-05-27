@@ -1,3 +1,4 @@
+import { AppHeaderComponent } from './../app-header/app-header.component';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -28,15 +29,19 @@ export class HomeComponent {
 
   validatePassword(password: string): boolean {
 
+    var upperCase = /[A-Z]/g;
+    var lowerCase = /[a-z]/g;
+    var numbers = /[1=9]/g;
+
     if (password.length < 8) {
       this.errorMessage = "Password must be 8 characters.";
       return false;
     }
-    else if (! password.match("/[A-Z]/") || ! password.match("/[a-z]/")) {
+    else if (!password.match(upperCase) && !password.match(lowerCase)) {
       this.errorMessage = "Password must have atleast 1 character";
       return false;
     }
-    else if (! password.match("/[1-9]/")) {
+    else if (! password.match(numbers)) {
       this.errorMessage = "Password must have atleast 1 numeric";
       return false;
     }
@@ -70,8 +75,11 @@ export class HomeComponent {
     var loginPassword = this.loginPasswordInput.nativeElement.value;
 
     this.auth.signIn(loginEmail, loginPassword).subscribe({next: (response) => {
-      if (response.error) throw Error(response.error)
-      localStorage.setItem('user_id', response.data.user.id)
+      if (response.error) {
+        alert("Failed to login!");
+        throw Error(response.error)
+      }
+      localStorage.setItem('user_id', response.data.user.id);
     }, error: (error) => {
       this.loginMessage = "Invalid username or password!"
     }, complete: () => {
